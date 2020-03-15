@@ -1,7 +1,5 @@
 package com.zhenwen.service.impl;
 
-import com.zhenwen.dao.AccountDao;
-import com.zhenwen.dao.impl.AccountDaoImpl;
 import com.zhenwen.service.AccountService;
 
 /**
@@ -14,14 +12,20 @@ import com.zhenwen.service.AccountService;
 
 public class AccountServiceImpl implements AccountService {
 
-    private AccountDao accountDao;
-
     public AccountServiceImpl() {
         System.out.println("accountService is ready");
     }
 
     @Override
     public void saveAccount(){
-        accountDao.saveAccount();
+        System.out.println("saveAccount...");
+    }
+
+    public void init() {
+        System.out.println("create...");
+    }
+
+    public void destroy() {
+        System.out.println("destroy...");
     }
 }
