@@ -15,8 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Client {
 
     /**
-     *
-     *  @param args 系统参数
+     * @param args 系统参数
      */
     public static void main(String[] args) {
         // 获取核心容器对象
