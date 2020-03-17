@@ -8,4 +8,23 @@
             http://www.springframework.org/schema/context/spring-context.xsd">
 
         <context:component-scan base-package="com.zhenwen"></context:component-scan>
+
+        <bean id="accountService" class="com.zhenwen.service.impl.AccountServiceImpl">
+                <property name="accountDao" ref="accountDao"></property>
+        </bean>
+
+        <bean id="accountDao" class="com.zhenwen.dao.impl.AccountDaoImpl">
+                <property name="runner" ref="runner"></property>
+        </bean>
+
+        <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+                <constructor-arg name="ds" ref="dataSource"></constructor-arg>
+        </bean>
+
+        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
+                <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring?serverTimezone=PRC"></property>
+                <property name="user" value="root"></property>
+                <property name="password" value="86248586wen"></property>
+        </bean>
 </beans>
