@@ -1,6 +1,7 @@
 package com.zhenwen.dao.impl;
 
 import com.zhenwen.dao.AccountDao;
+import org.springframework.stereotype.Repository;
 
 /**
  * created by IntelliJ IDEA
@@ -9,7 +10,7 @@ import com.zhenwen.dao.AccountDao;
  * @version jdk 11
  * @date 2020/3/10
  */
-
+@Repository("accountDao")
 public class AccountDaoImpl implements AccountDao {
 
     @Override
