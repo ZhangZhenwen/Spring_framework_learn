@@ -17,14 +17,11 @@ import java.util.List;
  * @version jdk 11
  * @date 2020/3/10
  */
-
+@Repository("accountDao")
 public class AccountDaoImpl implements AccountDao {
 
+    @Autowired
     private QueryRunner runner;
-
-    public void setRunner(QueryRunner runner) {
-        this.runner = runner;
-    }
 
     @Override
     public List<Account> findAll() {

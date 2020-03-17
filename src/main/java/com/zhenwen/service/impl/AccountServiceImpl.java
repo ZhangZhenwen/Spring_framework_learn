@@ -4,12 +4,8 @@ import com.zhenwen.dao.AccountDao;
 import com.zhenwen.entity.Account;
 import com.zhenwen.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,14 +15,11 @@ import java.util.List;
  * @version jdk 11
  * @date 2020/3/10
  */
-
+@Service(value = "accountService")
 public class AccountServiceImpl implements AccountService {
 
+    @Autowired
     private AccountDao accountDao;
-
-    public void setAccountDao(AccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
 
     @Override
     public List<Account> findAll() {
