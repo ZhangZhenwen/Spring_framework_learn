@@ -43,4 +43,11 @@ public interface AccountDao {
      * @param accountId account
      */
     void deleteAccount(Integer accountId);
+
+    /**
+     * 根据名称查询账户
+     * @param accountName 账户名称
+     * @return 如果有唯一结果就返回，如果没有结果就返回null
+     */
+    Account findAccountByName(String accountName);
 }
