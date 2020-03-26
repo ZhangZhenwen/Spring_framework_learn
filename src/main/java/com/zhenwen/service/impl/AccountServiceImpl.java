@@ -56,4 +56,9 @@ public class AccountServiceImpl implements AccountService {
         accountDao.updateAccount(source);
         accountDao.updateAccount(target);
     }
+
+    @Override
+    public void test() {
+        System.out.println("1111");
+    }
 }

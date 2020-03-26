@@ -1,6 +1,7 @@
 package com.zhenwen.test;
 
 import com.zhenwen.service.AccountService;
+import com.zhenwen.service.impl.AccountServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class AccountServiceTest {
 
     @Autowired
-    @Qualifier("proxyAccountService")
+    @Qualifier("accountService")
     private AccountService as;
 
     @Test
     public void testTransfer() {
-        as.transfer("张三", "李四", 100f);
+        as.test();
     }
 }

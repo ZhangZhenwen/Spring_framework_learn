@@ -52,4 +52,6 @@ public interface AccountService {
      * @param salary 转账金额
      */
     void transfer(String sourceName, String targetName, Float salary);
+
+    void test();
 }

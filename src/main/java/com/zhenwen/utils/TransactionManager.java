@@ -24,6 +24,8 @@ public class TransactionManager {
     public void beginTransaction() {
         try {
             connectionUtils.getThreadConnection().setAutoCommit(false);
+            System.out.println("begin transaction");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,6 +37,8 @@ public class TransactionManager {
     public void commit() {
         try {
             connectionUtils.getThreadConnection().commit();
+            System.out.println("commit transaction");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,6 +50,8 @@ public class TransactionManager {
     public void rollback() {
         try {
             connectionUtils.getThreadConnection().rollback();
+            System.out.println("rollback transaction");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,6 +64,7 @@ public class TransactionManager {
         try {
             connectionUtils.getThreadConnection().close();
             connectionUtils.removeConnection();
+            System.out.println("release transaction");
         } catch (SQLException e) {
             e.printStackTrace();
         }
