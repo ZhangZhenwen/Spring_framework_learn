@@ -3,6 +3,8 @@ package com.zhenwen.service.impl;
 import com.zhenwen.dao.AccountDao;
 import com.zhenwen.entity.Account;
 import com.zhenwen.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,11 +15,12 @@ import java.util.List;
  * @version jdk 11
  * @date 2020/3/10
  */
-
+@Service("accountService")
 public class AccountServiceImpl implements AccountService {
 
     private AccountDao accountDao;
 
+    @Autowired
     public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }

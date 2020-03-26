@@ -7,6 +7,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,16 +19,20 @@ import java.util.List;
  * @version jdk 11
  * @date 2020/3/10
  */
-
+@Repository("accountDao")
 public class AccountDaoImpl implements AccountDao {
 
     private QueryRunner runner;
     private ConnectionUtils connectionUtils;
 
+    @Autowired
+    @Qualifier("runner")
     public void setRunner(QueryRunner runner) {
         this.runner = runner;
     }
 
+    @Autowired
+    @Qualifier("connectionUtils")
     public void setConnectionUtils(ConnectionUtils connectionUtils) {
         this.connectionUtils = connectionUtils;
     }

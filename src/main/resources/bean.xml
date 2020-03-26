@@ -12,15 +12,6 @@
 
         <context:component-scan base-package="com.zhenwen"/>
 
-        <bean id="accountService" class="com.zhenwen.service.impl.AccountServiceImpl">
-                <property name="accountDao" ref="accountDao"/>
-        </bean>
-
-        <bean id="accountDao" class="com.zhenwen.dao.impl.AccountDaoImpl">
-                <property name="runner" ref="runner"/>
-                <property name="connectionUtils" ref="connectionUtils"/>
-        </bean>
-
         <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
                 <constructor-arg name="ds" ref="dataSource"/>
         </bean>
@@ -32,22 +23,5 @@
                 <property name="password" value="86248586wen"/>
         </bean>
 
-        <bean id="connectionUtils" class="com.zhenwen.utils.ConnectionUtils">
-                <property name="dataSource" ref="dataSource"/>
-        </bean>
-
-        <bean id="manager" class="com.zhenwen.utils.TransactionManager">
-                <property name="connectionUtils" ref="connectionUtils"/>
-        </bean>
-
-        <aop:config>
-                <aop:pointcut id="accountService" expression="execution(* com.zhenwen.service.impl.AccountServiceImpl.*(..))"/>
-
-                <aop:aspect id="transactionManager" ref="manager">
-                        <aop:before method="beginTransaction" pointcut-ref="accountService"/>
-                        <aop:after-returning method="commit" pointcut-ref="accountService"/>
-                        <aop:after-throwing method="rollback" pointcut-ref="accountService"/>
-                        <aop:after method="release" pointcut-ref="accountService"/>
-                </aop:aspect>
-        </aop:config>
+        <aop:aspectj-autoproxy/>
 </beans>

@@ -1,5 +1,10 @@
 package com.zhenwen.utils;
 
+import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import java.sql.SQLException;
 
 /**
@@ -9,18 +14,25 @@ import java.sql.SQLException;
  * @version jdk 11
  * @date 2020/3/18
  */
-
+@Component("manager")
+@Aspect
 public class TransactionManager {
 
     private ConnectionUtils connectionUtils;
 
+    @Autowired
+    @Qualifier("connectionUtils")
     public void setConnectionUtils(ConnectionUtils connectionUtils) {
         this.connectionUtils = connectionUtils;
     }
 
+    @Pointcut("execution(* com.zhenwen.service.impl.AccountServiceImpl.*(..))")
+    public void manager() {}
+
     /**
      * 开启事务
      */
+    @Before("manager()")
     public void beginTransaction() {
         try {
             connectionUtils.getThreadConnection().setAutoCommit(false);
@@ -34,6 +46,7 @@ public class TransactionManager {
     /**
      * 提交事务
      */
+    @AfterReturning("manager()")
     public void commit() {
         try {
             connectionUtils.getThreadConnection().commit();
@@ -47,6 +60,7 @@ public class TransactionManager {
     /**
      * 回滚事务
      */
+    @AfterThrowing("manager()")
     public void rollback() {
         try {
             connectionUtils.getThreadConnection().rollback();
@@ -60,6 +74,7 @@ public class TransactionManager {
     /**
      * 释放
      */
+    @After("manager()")
     public void release() {
         try {
             connectionUtils.getThreadConnection().close();
