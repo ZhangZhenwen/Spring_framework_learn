@@ -10,42 +10,44 @@
             http://www.springframework.org/schema/aop
             http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-        <context:component-scan base-package="com.zhenwen"></context:component-scan>
+        <context:component-scan base-package="com.zhenwen"/>
 
         <bean id="accountService" class="com.zhenwen.service.impl.AccountServiceImpl">
-                <property name="accountDao" ref="accountDao"></property>
+                <property name="accountDao" ref="accountDao"/>
         </bean>
 
         <bean id="accountDao" class="com.zhenwen.dao.impl.AccountDaoImpl">
-                <property name="runner" ref="runner"></property>
-                <property name="connectionUtils" ref="connectionUtils"></property>
+                <property name="runner" ref="runner"/>
+                <property name="connectionUtils" ref="connectionUtils"/>
         </bean>
 
         <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-                <constructor-arg name="ds" ref="dataSource"></constructor-arg>
+                <constructor-arg name="ds" ref="dataSource"/>
         </bean>
 
         <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-                <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
-                <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring?serverTimezone=PRC"></property>
-                <property name="user" value="root"></property>
-                <property name="password" value="86248586wen"></property>
+                <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring?serverTimezone=PRC"/>
+                <property name="user" value="root"/>
+                <property name="password" value="86248586wen"/>
         </bean>
 
         <bean id="connectionUtils" class="com.zhenwen.utils.ConnectionUtils">
-                <property name="dataSource" ref="dataSource"></property>
+                <property name="dataSource" ref="dataSource"/>
         </bean>
 
         <bean id="manager" class="com.zhenwen.utils.TransactionManager">
-                <property name="connectionUtils" ref="connectionUtils"></property>
+                <property name="connectionUtils" ref="connectionUtils"/>
         </bean>
 
         <aop:config>
+                <aop:pointcut id="accountService" expression="execution(* com.zhenwen.service.impl.AccountServiceImpl.*(..))"/>
+
                 <aop:aspect id="transactionManager" ref="manager">
-                        <aop:before method="beginTransaction" pointcut="execution(* *..AccountServiceImpl.*(..))"></aop:before>
-                        <aop:after-returning method="commit" pointcut="execution(* com.zhenwen.service.impl.AccountServiceImpl.*(..))"></aop:after-returning>
-                        <aop:after-throwing method="rollback" pointcut="execution(* com.zhenwen.service.impl.AccountServiceImpl.*(..))"></aop:after-throwing>
-                        <aop:after method="release" pointcut="execution(* *..AccountServiceImpl.*(..))"></aop:after>
+                        <aop:before method="beginTransaction" pointcut-ref="accountService"/>
+                        <aop:after-returning method="commit" pointcut-ref="accountService"/>
+                        <aop:after-throwing method="rollback" pointcut-ref="accountService"/>
+                        <aop:after method="release" pointcut-ref="accountService"/>
                 </aop:aspect>
         </aop:config>
 </beans>
