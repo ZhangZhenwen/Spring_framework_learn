@@ -9,9 +9,15 @@
 
         <context:component-scan base-package="com.zhenwen"></context:component-scan>
 
+        <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>
+
+        <bean id="beanFactory" class="com.zhenwen.factory.BeanFactory">
+                <property name="manager" ref="manager"></property>
+                <property name="accountService" ref="accountService"></property>
+        </bean>
+
         <bean id="accountService" class="com.zhenwen.service.impl.AccountServiceImpl">
                 <property name="accountDao" ref="accountDao"></property>
-                <property name="manager" ref="manager"></property>
         </bean>
 
         <bean id="accountDao" class="com.zhenwen.dao.impl.AccountDaoImpl">
